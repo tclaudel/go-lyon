@@ -1,0 +1,58 @@
+{{ define "header" }}
+  {{ partials.Include "page-header.html" . }}
+{{ end }}
+
+{{ define "main" }}
+  {{ $page := . }}
+  {{ $section := .Site.GetPage "section" .Section }}
+
+  {{- $post_class := "" -}}
+  {{- with .File -}}
+    {{- $post_class = printf "page-%s" .ContentBaseName -}}
+  {{- end -}}
+
+  <article class="{{ $post_class }} flex-l mw7 center ph3 flex-wrap justify-between">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+        {{ .CurrentSection.Title }}
+      </aside>
+      <h1 class="f1 athelas mt3 mb1">
+        {{- .Title -}}
+      </h1>
+
+      {{/* Job metadata */}}
+      <div class="f5 mv3 lh-copy mid-gray">
+        {{ with .Params.company }}
+          <span class="b">{{ . }}</span>
+        {{ end }}
+        {{ with .Params.location }}
+          — {{ . }}
+        {{ end }}
+      </div>
+
+      <div class="mv3 flex flex-wrap" style="gap: 0.5rem;">
+        {{ with .Params.link }}
+          <a href="{{ . }}" target="_blank" rel="noopener" class="ba b--dark-blue dark-blue bg-white br2 f6 link ph3 pv2 hover-bg-dark-blue hover-white">
+            Postuler
+          </a>
+        {{ end }}
+        {{ with .Params.meetup_link }}
+          <a href="{{ . }}" target="_blank" rel="noopener" class="ba b--red red bg-white br2 f6 link ph3 pv2 hover-bg-red hover-white">
+            Meetup associé
+          </a>
+        {{ end }}
+      </div>
+
+      {{ if not .Date.IsZero }}
+      <time class="f6 mv4 dib tracked" {{ fmt.Printf `datetime="%s"` (.Date.Format "2006-01-02T15:04:05Z07:00") | safe.HTMLAttr }}>
+        {{- .Date | time.Format (compare.Default "January 2, 2006" .Site.Params.date_format) -}}
+      </time>
+      {{ end }}
+    </header>
+
+    <div class="nested-copy-line-height lh-copy {{ $.Param "post_content_classes" | compare.Default "serif" }} f4 nested-links {{ $.Param "text_color" | compare.Default "mid-gray" }} w-100-l">
+      {{- .Content -}}
+      {{- partials.Include "tags.html" . -}}
+    </div>
+  </article>
+{{ end }}

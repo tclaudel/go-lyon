@@ -5,6 +5,7 @@ title = 'SRE / Platform Engineer Go — TechWave'
 company = 'TechWave'
 location = 'Lyon 7e — Full remote'
 link = 'https://techwave.io/careers/sre-go'
+meetup_link = 'https://www.meetup.com/fr-FR/golang-lyon/events/123456789/'
 tags = ['emploi', 'golang', 'SRE', 'CDI']
 description = "TechWave recrute un·e SRE maîtrisant Go pour fiabiliser sa plateforme de paiement en ligne."
 +++

@@ -8,6 +8,10 @@
     {{- $text_alignment = "tr-l" -}}
   {{- end -}}
 
+  <div class="tc pv4">
+    <img src="{{ "images/go_lyon_logo.png" | absURL }}" alt="Go Lyon" class="br-100 w4 w5-ns">
+  </div>
+
   <article class="cf ph3 ph5-l pv3 pv4-l f4 {{ $text_alignment }} center measure-wide lh-copy nested-links {{ $.Param "text_color" | compare.Default "mid-gray" }}">
     {{ .Content }}
   </article>

@@ -1,0 +1,47 @@
+baseURL = 'https://tclaudel.github.io/go-lyon/'
+buildFuture = true
+languageCode = 'fr'
+defaultContentLanguage = 'fr'
+title = 'Go Lyon'
+theme = 'ananke'
+
+[params]
+  description = "Blog de la communauté Go Lyon — meetups, talks et actualités autour du langage Go à Lyon."
+  date_format = "2 January 2006"
+  mainSections = ["recaps"]
+  show_reading_time = true
+  recent_posts_number = 5
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
+[[menu.main]]
+  identifier = "accueil"
+  name = "Accueil"
+  url = "/"
+  weight = 1
+
+[[menu.main]]
+  identifier = "prochain-meetup"
+  name = "Prochain Meetup"
+  url = "/prochain-meetup/"
+  weight = 2
+
+[[menu.main]]
+  identifier = "recaps"
+  name = "Recaps"
+  url = "/recaps/"
+  weight = 3
+
+[[menu.main]]
+  identifier = "tags"
+  name = "Tags"
+  url = "/tags/"
+  weight = 4
+
+[[menu.main]]
+  identifier = "jobboard"
+  name = "Jobboard"
+  url = "/jobboard/"
+  weight = 5

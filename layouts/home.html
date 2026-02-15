@@ -1,0 +1,76 @@
+{{ define "main" }}
+
+  {{- $config := site.Params.ananke.home -}}
+  {{- $text_alignment := "tc-l" -}}
+  {{- if eq $config.content_alignment "left" -}}
+    {{- $text_alignment = "tl-l" -}}
+  {{- else if eq $config.content_alignment "right" -}}
+    {{- $text_alignment = "tr-l" -}}
+  {{- end -}}
+
+  <article class="cf ph3 ph5-l pv3 pv4-l f4 {{ $text_alignment }} center measure-wide lh-copy nested-links {{ $.Param "text_color" | compare.Default "mid-gray" }}">
+    {{ .Content }}
+  </article>
+
+  {{/* Prochain Meetup section */}}
+  {{ $upcoming := collections.Where $.Site.RegularPages "Section" "prochain-meetup" }}
+  {{ if compare.Ge (len $upcoming) 1 }}
+    <div class="pa3 pa4-ns w-100 w-70-ns center">
+      <h1 class="f2 athelas">Prochain Meetup</h1>
+      <section class="w-100 mw8">
+        {{ range (collections.First 1 $upcoming) }}
+          <div class="w-100 mb4 relative">
+            {{ .Render "summary-with-image" }}
+          </div>
+        {{ end }}
+      </section>
+    </div>
+  {{ end }}
+
+  {{/* Recaps section */}}
+  {{ $recaps := collections.Where $.Site.RegularPages "Section" "recaps" }}
+  {{ $recaps_count := len $recaps }}
+  {{ if compare.Ge $recaps_count 1 }}
+    <div class="pa3 pa4-ns w-100 w-70-ns center">
+      <h1 class="f2 athelas">Derniers Recaps</h1>
+      {{ $n_posts := $.Param "recent_posts_number" | compare.Default 3 }}
+
+      <section class="w-100 mw8">
+        {{ range (collections.First $n_posts $recaps) }}
+          <div class="w-100 mb4 relative">
+            {{ .Render "summary-with-image" }}
+          </div>
+        {{ end }}
+      </section>
+
+      {{ if compare.Ge $recaps_count (math.Add $n_posts 1) }}
+        <section class="w-100">
+          <h1 class="f3">{{ lang.Translate "more" }}</h1>
+          {{ range (collections.First 4 (collections.After $n_posts $recaps)) }}
+            <h2 class="f5 fw4 mb4 dib {{ compare.Conditional (compare.Eq $.Site.Language.LanguageDirection "rtl") "ml3" "mr3" }}">
+              <a href="{{ .RelPermalink }}" class="link black dim">
+                {{ .Title }}
+              </a>
+            </h2>
+          {{ end }}
+        </section>
+      {{ end }}
+
+    </div>
+  {{ end }}
+
+  {{/* Jobboard section */}}
+  {{ $jobs := collections.Where $.Site.RegularPages "Section" "jobboard" }}
+  {{ if compare.Ge (len $jobs) 1 }}
+    <div class="pa3 pa4-ns w-100 w-70-ns center">
+      <h1 class="f2 athelas">Offres d'emploi</h1>
+      <section class="w-100 mw8">
+        {{ range (collections.First 3 $jobs) }}
+          <div class="w-100 mb4 relative">
+            {{ .Render "summary-with-image" }}
+          </div>
+        {{ end }}
+      </section>
+    </div>
+  {{ end }}
+{{ end }}
